@@ -22,20 +22,12 @@ mongoose
 
 app.use(express.static(path.join(__dirname, "public")));
 
-// app.get("/", (req, res) => {
-//   console.log("Request received");
-
-//   res.status(200).sendFile("index.html", { root: __dirname });
-// });
-
 const productShema = mongoose.Schema(
   {
     name: { type: String, require: true },
     price: Number,
   },
-  {
-    timestamps: true,
-  }
+  { timestamps: true }
 );
 
 const Product = mongoose.model("Product", productShema);
@@ -43,9 +35,6 @@ const Product = mongoose.model("Product", productShema);
 app.use(express.json());
 
 app.post("/api/v1/products", async (req, res) => {
-  console.log("Peticion POST recibida");
-  console.log({ body: req.body });
-
   const newProduct = new Product(req.body);
   await newProduct.save();
 
